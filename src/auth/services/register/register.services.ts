@@ -1,8 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { User } from '../entity/user.entity';
+import { User } from '../../entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RegisterDto } from '../DTO/register.dto';
+import { RegisterDto } from '../../DTO/register.dto';
 import { CryptPasswordService } from './crypt.password';
 import { UserValidator } from './userValidator.service.';
 
@@ -21,7 +21,7 @@ export class RegisterService {
   }: RegisterDto): Promise<User> {
     try {
       const verifyEmail = await this.userValidator.userExists(email);
-      if (!verifyEmail) {
+      if (verifyEmail === null) {
         const hashPassword = await this.cryptPassword.cryptPassword(password);
         const newUser = this.userRepository.create({
           email,
@@ -30,7 +30,7 @@ export class RegisterService {
         });
         return await this.userRepository.save(newUser);
       }
-      throw new ConflictException('Error registering the user ');
+      throw new ConflictException('email has been used');
     } catch (error) {
       throw new ConflictException(
         'Error registering the user ' + error.message,

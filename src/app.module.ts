@@ -5,8 +5,8 @@ import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/entity/role.entity';
 import { User } from './auth/entity/user.entity';
 import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { AuthModule } from './auth/auth.module';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 @Module({
   imports: [
@@ -27,8 +27,7 @@ import { AuthModule } from './auth/auth.module';
       }),
     }),
     RolesModule,
-    AuthModule
-    
+    AuthModule,
   ],
   controllers: [],
   providers: [
