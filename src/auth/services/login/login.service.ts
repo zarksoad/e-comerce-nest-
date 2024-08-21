@@ -17,7 +17,6 @@ export class LoginService implements ILoginService {
 
   async checkingCredential(email: string, password: string): Promise<{}> {
     const user = await this.userValidator.userExists(email);
-    console.log(user)
     const checkingPassword = await this.matchPassword.checkingPassword(
       password,
       user?.password,

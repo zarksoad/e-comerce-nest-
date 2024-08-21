@@ -14,6 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoginService } from './services/login/login.service';
 import { MatchPassword } from './services/login/checkPassword.service';
 import { GenerateToken } from './services/login/token.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -36,7 +37,9 @@ import { GenerateToken } from './services/login/token.service';
     LoginService,
     MatchPassword,
     GenerateToken,
+    JwtStrategy,
   ],
   controllers: [AuthController],
+  exports: [JwtStrategy],
 })
 export class AuthModule {}
