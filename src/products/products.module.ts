@@ -7,6 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { FindAllProductsService } from './services/findAll/findAllProducts.service';
 import { findOneProductService } from './services/findOne/findOne.service';
+import { UpdateProductService } from './services/update/updateProduct.service';
+import { ExistProductByIdService } from './services/update/existProductById.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product])],
@@ -16,7 +18,9 @@ import { findOneProductService } from './services/findOne/findOne.service';
     CreateProductService,
     ExistProductService,
     FindAllProductsService,
-    findOneProductService
+    findOneProductService,
+    UpdateProductService,
+    ExistProductByIdService
   ],
 })
 export class ProductsModule {}

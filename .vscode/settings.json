@@ -3,6 +3,7 @@
         "bycript",
         "Hasher",
         "Ifind",
+        "Iupdate",
         "nestjs",
         "typeorm"
     ]

@@ -4,6 +4,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductService } from './services/create/createProduct.service';
 import { FindAllProductsService } from './services/findAll/findAllProducts.service';
 import { findOneProductService } from './services/findOne/findOne.service';
+import { UpdateProductService } from './services/update/updateProduct.service';
 
 @Injectable()
 export class ProductsService {
@@ -11,6 +12,7 @@ export class ProductsService {
     private readonly createProductService: CreateProductService,
     private readonly findAllService: FindAllProductsService,
     private readonly findOneService: findOneProductService,
+    private readonly updateProductService: UpdateProductService,
   ) {}
   async create(createProductDto: CreateProductDto) {
     return this.createProductService.newProduct(createProductDto);
@@ -24,8 +26,8 @@ export class ProductsService {
     return this.findOneService.product(id);
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    return await this.updateProductService.updateProduct(id, updateProductDto);
   }
 
   remove(id: number) {
