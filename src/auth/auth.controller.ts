@@ -18,7 +18,6 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe({ transform: true }))
   async registerUser(@Body() { email, password, roleId }: RegisterDto) {
     return await this.authService.registerUser({ email, password, roleId });
