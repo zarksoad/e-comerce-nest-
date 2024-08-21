@@ -1,3 +1,4 @@
+import { Product } from 'src/products/entities/product.entity';
 import { Role } from 'src/roles/entity/role.entity';
 import {
   Column,

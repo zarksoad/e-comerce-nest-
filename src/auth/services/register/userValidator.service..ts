@@ -14,7 +14,6 @@ class UserValidator implements IUserValidator {
   ) {}
 
   async userExists(email: string): Promise<User | null> {
-    console.log(email,"desde user exists")
     const user = await this.userRepository.findOne({ where: { email } });
     return user;
   }
