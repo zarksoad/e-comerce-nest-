@@ -11,14 +11,13 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './DTO/register.dto';
-import { JwtAuthGuard } from './guards/jwt.auth.guard';
 
 @Controller('auth')
+@UsePipes(new ValidationPipe({ transform: true }))
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @UsePipes(new ValidationPipe({ transform: true }))
   async registerUser(@Body() { email, password, roleId }: RegisterDto) {
     return await this.authService.registerUser({ email, password, roleId });
   }

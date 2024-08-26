@@ -10,6 +10,7 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { Product } from './products/entities/product.entity';
+import { Order } from './orders/entities/order.entity';
 
 @Module({
   imports: [
@@ -25,8 +26,8 @@ import { Product } from './products/entities/product.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [Role, User,Product],
-        synchronize: true,
+        entities: [Role, User, Product, Order],
+        synchronize: false,
       }),
     }),
     RolesModule,

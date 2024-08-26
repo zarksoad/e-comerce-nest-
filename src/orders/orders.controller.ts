@@ -1,34 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Order } from './entities/order.entity';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('orders')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(1, 2)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
-
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.ordersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+  async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
+    const { userId, productIds, totalPrice } = createOrderDto;
+    return this.ordersService.create({ userId, productIds, totalPrice });
   }
 }

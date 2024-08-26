@@ -1,10 +1,11 @@
-import { Product } from 'src/products/entities/product.entity';
+import { Order } from 'src/orders/entities/order.entity';
 import { Role } from 'src/roles/entity/role.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -25,4 +26,7 @@ export class User {
   @ManyToOne(() => Role, (role) => role.user)
   @JoinColumn({ name: 'roleId' })
   role: Role;
+
+  @OneToMany(()=>Order,order => order.userId)
+  order:Order[]
 }
